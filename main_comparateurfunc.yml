@@ -1,0 +1,32 @@
+name: Build and deploy Python project to Azure Function App - comparateurfunc
+
+on:
+  push:
+    branches: [ main ]           # Déclenchement automatique à chaque push sur la branche main
+  workflow_dispatch:             # Permet de lancer manuellement le workflow depuis l’interface GitHub
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest       # Utilise une machine virtuelle Ubuntu pour exécuter le job
+
+    steps:
+      # 1) Récupérer le code source du dépôt
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2) Configuration de la version de Python à utiliser
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'  # Version Python utilisée dans l'application Azure Function
+
+      # 3) Déploiement de l'application vers Azure Function App
+      - name: Deploy to Azure Functions
+        uses: Azure/functions-action@v1
+        with:
+          app-name: comparateurfunc                             # Nom de l'application Azure Function
+          slot-name: Production                                 # Slot de déploiement utilisé
+          package: '.'                                          # Répertoire racine du dépôt
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_xxxxxxxxxxxxxxxxxxxxxxxxxxx }}
+          scm-do-build-during-deployment: true                  # Oryx va construire et installer les dépendances (via requirements.txt)
+          enable-oryx-build: true                               # Active l’utilisation du buildpack Oryx (Python)
