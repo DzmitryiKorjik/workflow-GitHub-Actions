@@ -1,73 +1,77 @@
-# 🧾 comparateurfunc – Déploiement d'une Azure Function Python
+# comparateurfunc – Deploying a Python Azure Function
 
-Ce dépôt contient une application **Azure Function en Python** dédiée à des traitements automatisés (par exemple, des comparaisons comptables ou des exports Excel), avec un workflow GitHub Actions pour déploiement continu.
-
----
-
-## 🚀 Objectif
-
-Automatiser le **déploiement continu** d’une Azure Function Python à chaque push sur la branche `main`, via GitHub Actions.
+This repository contains a **Python-based Azure Function App** for automated tasks (e.g., accounting comparisons or Excel exports), with a GitHub Actions workflow for continuous deployment.
 
 ---
 
-## 🧰 Technologies utilisées
+## Purpose
 
-- **Python 3.11**
-- **Azure Functions**
-- **GitHub Actions**
-- **Oryx Build System**
-- **Azure Publish Profile (authentification via secret GitHub)**
+Automatically deploy the Azure Function to Azure whenever code is pushed to the `main` branch, using GitHub Actions.
 
 ---
 
-## 🔄 Déploiement automatique avec GitHub Actions
+## Technologies Used
 
-### 📂 Fichier concerné :
+- Python 3.11  
+- Azure Functions  
+- GitHub Actions  
+- Oryx Build System  
+- Azure Publish Profile (for GitHub authentication)
+
+---
+
+## Deployment with GitHub Actions
+
+### File:
 `.github/workflows/deploy.yml`
 
-### 🔁 Déclenchement :
-- Automatique sur `push` dans la branche `main`
-- Manuel via l’interface GitHub (onglet **Actions**)
+### Triggered:
+- Automatically on `push` to the `main` branch  
+- Manually via GitHub’s **Actions** tab
 
-### ⚙️ Étapes du workflow :
+### Workflow steps:
 
-1. **Checkout du code**  
-2. **Installation de Python 3.11**
-3. **Déploiement vers Azure Function avec Oryx** (installe automatiquement les dépendances via `requirements.txt`)
-
----
-
-## 🔐 Configuration requise
-
-Ajoute ce secret dans ton dépôt GitHub :
-
-| Nom du secret | Description |
-|---------------|-------------|
-| `AZUREAPPSERVICE_PUBLISHPROFILE_xxxxxxxxxxxxxxxxxxxxxxxx` | Profil de publication Azure (.PublishSettings) |
-
-> 📌 Pour obtenir ce profil :  
-> Va dans le **Portail Azure > ta Function App > Centre de déploiement > Obtenir le profil de publication**.
+1. Check out the repository code  
+2. Set up Python 3.11  
+3. Deploy to Azure using Oryx (which installs all dependencies listed in `requirements.txt`)
 
 ---
 
-## ✅ Résultat attendu
+## Required Secret
 
-À chaque mise à jour du code sur `main`, GitHub Actions :
-- installe les dépendances Python (requests, pandas, etc.)
-- déploie automatiquement le code vers Azure Functions
-- rend la fonction immédiatement disponible en production
+You must add the following GitHub secret to enable deployment:
 
----
+| Secret name | Description |
+|-------------|-------------|
+| `AZUREAPPSERVICE_PUBLISHPROFILE_xxxxxxxxxxx` | The publish profile from Azure (contents of `.PublishSettings` file) |
 
-## 🧪 Exemple de cas d’usage
-
-Fonction appelée via un webhook HTTP qui :
-- compare des fichiers Excel
-- génère un fichier ZIP de résultats
-- l’envoie automatiquement sur SharePoint ou autre stockage
+To obtain the publish profile:
+1. Go to Azure Portal  
+2. Open your Function App  
+3. Navigate to "Deployment Center"  
+4. Click "Get publish profile" and copy the content into your GitHub repository 
 
 ---
 
-## 📬 Contact
+## Expected Behavior
 
-Pour toute question ou amélioration, n’hésitez pas à ouvrir une **Issue** ou un **Pull Request**.
+Each time code is pushed to the `main` branch:
+
+- Dependencies (like `requests`, `pandas`, etc.) are installed automatically  
+- The code is deployed to the specified Azure Function App  
+- The function is made immediately available in production
+
+---
+
+## Example Use Case
+
+An HTTP-triggered Azure Function that:
+- Compares accounting Excel files  
+- Generates a ZIP file of results  
+- Uploads it to SharePoint or another storage system
+
+---
+
+## Contact
+
+Feel free to open an issue or pull request for questions or improvements.
