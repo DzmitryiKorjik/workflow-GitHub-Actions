@@ -1,6 +1,6 @@
-# comparateurfunc – Deploying a Python Azure Function
+# Deploying a Python Azure Function
 
-This repository contains a **Python-based Azure Function App** for automated tasks (e.g., accounting comparisons or Excel exports), with a GitHub Actions workflow for continuous deployment.
+This repository contains a **Python-based Azure Function App** for automated tasks, with a GitHub Actions workflow for continuous deployment.
 
 ---
 
